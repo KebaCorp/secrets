@@ -27,12 +27,16 @@ class Secret
     private int $id;
 
     /**
+     * Secret type id.
+     *
      * @var int
      * @ORM\Column(type="integer")
      */
-    private int $secretType;
+    private int $secretTypeId;
 
     /**
+     * Salt to generate password.
+     *
      * @var string
      * @ORM\Column(type="string", length=255)
      */
@@ -55,12 +59,16 @@ class Secret
     private int $length;
 
     /**
+     * Secret created at timestamp.
+     *
      * @var int
      * @ORM\Column(type="integer")
      */
     private int $createdAt;
 
     /**
+     * Secret updated at timestamp.
+     *
      * @var int|null
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -69,13 +77,13 @@ class Secret
     /**
      * Secret constructor.
      *
-     * @param int    $secretType
+     * @param int    $secretTypeId
      * @param string $salt
      * @param int    $length
      */
-    public function __construct(int $secretType, string $salt, int $length = 16)
+    public function __construct(int $secretTypeId, string $salt, int $length = 16)
     {
-        $this->secretType = $secretType;
+        $this->secretTypeId = $secretTypeId;
         $this->salt = $salt;
         $this->length = $length;
     }
@@ -99,17 +107,17 @@ class Secret
     /**
      * @return int
      */
-    public function getSecretType(): int
+    public function getSecretTypeId(): int
     {
-        return $this->secretType;
+        return $this->secretTypeId;
     }
 
     /**
-     * @param int $secretType
+     * @param int $secretTypeId
      */
-    public function setSecretType(int $secretType): void
+    public function setSecretTypeId(int $secretTypeId): void
     {
-        $this->secretType = $secretType;
+        $this->secretTypeId = $secretTypeId;
     }
 
     /**
@@ -129,6 +137,14 @@ class Secret
     }
 
     /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
      * Generate password.
      *
      * @throws Exception
@@ -139,7 +155,7 @@ class Secret
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
         if ($passwordHash) {
-            $this->password = mb_strimwidth($passwordHash, 0, $this->length, $passwordHash);;
+            $this->password = mb_strimwidth($passwordHash, 0, $this->length);
         }
     }
 

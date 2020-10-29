@@ -32,9 +32,9 @@ class SecretService implements SecretServiceInterface
      * {@inheritDoc}
      * @throws Exception
      */
-    public function create(int $secretType, string $salt, int $length = 16): Secret
+    public function create(int $secretTypeId, string $salt, int $length = 16): Secret
     {
-        $secret = new Secret($secretType, $salt, $length);
+        $secret = new Secret($secretTypeId, $salt, $length);
         $secret->generatePassword();
 
         $time = time();

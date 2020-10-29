@@ -14,10 +14,11 @@ interface SecretServiceInterface
     /**
      * Create secret.
      *
-     * @param int    $secretType
+     * @param int    $secretTypeId
      * @param string $salt
+     * @param int    $length
      *
      * @return Secret
      */
-    public function create(int $secretType, string $salt): Secret;
+    public function create(int $secretTypeId, string $salt, int $length = 16): Secret;
 }
