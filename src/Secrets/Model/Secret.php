@@ -24,7 +24,7 @@ class Secret
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue()
      */
-    private int $id;
+    protected int $id;
 
     /**
      * Secret type id.
@@ -32,7 +32,7 @@ class Secret
      * @var int
      * @ORM\Column(type="integer")
      */
-    private int $secretTypeId;
+    protected int $secretTypeId;
 
     /**
      * Salt to generate password.
@@ -40,7 +40,7 @@ class Secret
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private string $salt;
+    protected string $salt;
 
     /**
      * Generated password.
@@ -48,7 +48,7 @@ class Secret
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private string $password;
+    protected string $password;
 
     /**
      * Password length.
@@ -56,7 +56,7 @@ class Secret
      * @var int
      * @ORM\Column(type="integer")
      */
-    private int $length;
+    protected int $length;
 
     /**
      * Secret created at timestamp.
@@ -64,7 +64,7 @@ class Secret
      * @var int
      * @ORM\Column(type="integer")
      */
-    private int $createdAt;
+    protected int $createdAt;
 
     /**
      * Secret updated at timestamp.
@@ -72,7 +72,7 @@ class Secret
      * @var int|null
      * @ORM\Column(type="integer", nullable=true)
      */
-    private ?int $updatedAt = null;
+    protected ?int $updatedAt = null;
 
     /**
      * Secret constructor.
