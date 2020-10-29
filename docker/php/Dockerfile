@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y \
         libcurl4-openssl-dev \
         pkg-config \
         libssl-dev \
+        libpq5 \
+        libpq-dev \
     && ACCEPT_EULA=Y \
         DEBIAN_FRONTEND=noninteractive \
         apt-get install --yes \
@@ -33,6 +35,9 @@ RUN apt-get update && apt-get install -y \
         soap \
         mysqli \
         pdo_mysql \
+        pdo \
+        pgsql \
+        pdo_pgsql \
     && pecl install \
         mongodb \
         xdebug \
