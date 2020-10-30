@@ -14,7 +14,7 @@ interface SecretRepositoryInterface
     /**
      * Get all secrets.
      *
-     * @return array
+     * @return Secret[]
      */
     public function all(): array;
 
@@ -26,6 +26,16 @@ interface SecretRepositoryInterface
      * @return Secret
      */
     public function one(int $id): Secret;
+
+    /**
+     * Get by user id and secret type id.
+     *
+     * @param int $userId
+     * @param int $secretTypeId
+     *
+     * @return Secret[]
+     */
+    public function byUserIdAndSecretTypeId(int $userId, int $secretTypeId): array;
 
     /**
      * Save secret.
@@ -44,4 +54,13 @@ interface SecretRepositoryInterface
      * @return Secret
      */
     public function update(Secret $secret): Secret;
+
+    /**
+     * Remove secret.
+     *
+     * @param Secret $secret
+     *
+     * @return bool
+     */
+    public function remove(Secret $secret): bool;
 }

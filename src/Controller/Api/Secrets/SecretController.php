@@ -44,7 +44,7 @@ class SecretController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $secret = $this->secretService->create($data['secretTypeId'], $data['salt'], $data['length']);
+        $secret = $this->secretService->create($data['userId'], $data['secretTypeId'], $data['salt'], $data['length']);
 
         return $this->json(['secret' => $secret]);
     }

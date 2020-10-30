@@ -15,4 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SecretArchive extends Secret
 {
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
 }

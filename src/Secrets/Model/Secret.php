@@ -27,6 +27,14 @@ class Secret
     protected int $id;
 
     /**
+     * Secret user id.
+     *
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    protected int $userId;
+
+    /**
      * Secret type id.
      *
      * @var int
@@ -77,12 +85,14 @@ class Secret
     /**
      * Secret constructor.
      *
+     * @param int    $userId
      * @param int    $secretTypeId
      * @param string $salt
      * @param int    $length
      */
-    public function __construct(int $secretTypeId, string $salt, int $length = 16)
+    public function __construct(int $userId, int $secretTypeId, string $salt, int $length = 16)
     {
+        $this->userId = $userId;
         $this->secretTypeId = $secretTypeId;
         $this->salt = $salt;
         $this->length = $length;
@@ -102,6 +112,22 @@ class Secret
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param int $userId
+     */
+    public function setUserId(int $userId): void
+    {
+        $this->userId = $userId;
     }
 
     /**

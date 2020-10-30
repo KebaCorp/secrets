@@ -3,6 +3,7 @@
 namespace App\Secrets\Service;
 
 use App\Secrets\Model\Secret;
+use App\Secrets\Model\SecretArchive;
 use App\Secrets\Repository\SecretRepositoryInterface;
 use Exception;
 
@@ -32,9 +33,25 @@ class SecretService implements SecretServiceInterface
      * {@inheritDoc}
      * @throws Exception
      */
-    public function create(int $secretTypeId, string $salt, int $length = 16): Secret
+    public function create(int $userId, int $secretTypeId, string $salt, int $length = 16): Secret
     {
-        $secret = new Secret($secretTypeId, $salt, $length);
+        $oldSecrets = $this->repository->byUserIdAndSecretTypeId($userId, $secretTypeId);
+        foreach ($oldSecrets as $oldSecret) {
+            $secretArchive = new SecretArchive(
+                $oldSecret->getUserId(),
+                $oldSecret->getSecretTypeId(),
+                $oldSecret->getSalt(),
+                $oldSecret->getLength()
+            );
+            $secretArchive->setPassword($oldSecret->getPassword());
+            $secretArchive->setCreatedAt($oldSecret->getCreatedAt());
+            $secretArchive->setUpdatedAt($oldSecret->getUpdatedAt());
+
+            $this->repository->save($secretArchive);
+            $this->repository->remove($oldSecret);
+        }
+
+        $secret = new Secret($userId, $secretTypeId, $salt, $length);
         $secret->generatePassword();
 
         $time = time();

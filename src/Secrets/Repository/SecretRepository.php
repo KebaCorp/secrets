@@ -57,6 +57,14 @@ class SecretRepository extends ServiceEntityRepository implements SecretReposito
     /**
      * {@inheritDoc}
      */
+    public function byUserIdAndSecretTypeId(int $userId, int $secretTypeId): array
+    {
+        return parent::findBy(['user_id' => $userId, 'secret_type_id' => $secretTypeId]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function save(Secret $secret): Secret
     {
         $this->manager->persist($secret);
@@ -73,5 +81,16 @@ class SecretRepository extends ServiceEntityRepository implements SecretReposito
         $this->manager->flush();
 
         return $secret;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function remove(Secret $secret): bool
+    {
+        $this->manager->remove($secret);
+        $this->manager->flush();
+
+        return true;
     }
 }
